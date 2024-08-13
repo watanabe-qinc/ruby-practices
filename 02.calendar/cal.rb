@@ -5,15 +5,15 @@ require "date"
 
 opt = OptionParser.new
 
-params = {m: Date.today.month, y: Date.today.year}
+options = {m: Date.today.month, y: Date.today.year}
 
-opt.on('-m [month]', Integer) {|v| params[:m] = v}
-opt.on('-y [year]', Integer) {|v| params[:y] = v}
+opt.on('-m [month]', Integer) {|v| options[:m] = v}
+opt.on('-y [year]', Integer) {|v| options[:y] = v}
 
 opt.parse!(ARGV)
 
-month = params[:m]
-year = params[:y]
+month = options[:m]
+year = options[:y]
 
 first_day = Date.new(year, month, 1)
 last_day = Date.new(year, month, -1)
@@ -26,7 +26,7 @@ print "   " * first_day.wday
 (first_day..last_day).each do |date|
   print date.day.to_s.center(3)
   if date.saturday?
-    puts "\n"
+    puts
   end 
 end
-
+puts
