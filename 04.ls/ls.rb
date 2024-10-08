@@ -15,12 +15,12 @@ def devide_directory_contents(directory_contents)
   devided_directory_contents
 end
 
-def sort_and_puts_directory_contents(devided_directory_contents, directory_contents)
+def sort_directory_contents(directory_contents)
   max_length = directory_contents.map(&:length).max
 
-  devided_directory_contents.transpose.each do |transposed_directory_contents|
-    puts transposed_directory_contents.map { |transposed_directory_content| transposed_directory_content.ljust(max_length, ' ') }.join(' ' * 5)
+  devide_directory_contents(directory_contents).transpose.map do |transposed_directory_contents|
+    transposed_directory_contents.map { |transposed_directory_content| transposed_directory_content.ljust(max_length, ' ') }.join(' ' * 5)
   end
 end
 
-sort_and_puts_directory_contents(devide_directory_contents(Dir.glob('*')), Dir.glob('*'))
+puts sort_directory_contents(Dir.glob('*'))
