@@ -1,14 +1,16 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require 'optparse'
+
 def devide_directory_contents(directory_contents)
   column = 3
 
   devided_directory_contents =
     if (directory_contents.length % column).zero?
-      directory_contents.each_slice(directory_contents.length / column).to_a
+      directory_contents.sort.each_slice(directory_contents.length / column).to_a
     else
-      directory_contents.each_slice(directory_contents.length / column + 1).to_a
+      directory_contents.sort.each_slice(directory_contents.length / column + 1).to_a
     end
 
   devided_directory_contents.last << '' while devided_directory_contents.last.length < devided_directory_contents.first.length
@@ -23,4 +25,15 @@ def sort_directory_contents(directory_contents)
   end
 end
 
-puts sort_directory_contents(Dir.glob('*'))
+opt = OptionParser.new
+
+options = {}
+opt.on('-a') { |v| options[:a] = v }
+
+opt.parse!(ARGV)
+
+if options[:a]
+  puts sort_directory_contents(Dir.entries('.'))
+else
+  puts sort_directory_contents(Dir.glob('*'))
+end
