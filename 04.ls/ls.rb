@@ -30,10 +30,14 @@ opt = OptionParser.new
 options = {}
 opt.on('-a') { |v| options[:a] = v }
 
+opt.on('-r') { |v| options[:r] = v }
+
 opt.parse!(ARGV)
 
 if options[:a]
   puts sort_directory_contents(Dir.glob('*', File::FNM_DOTMATCH))
+elsif options[:r]
+  puts sort_directory_contents(Dir.glob('*').reverse)
 else
   puts sort_directory_contents(Dir.glob('*'))
 end
