@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require 'optparse'
+
 def devide_directory_contents(directory_contents)
   column = 3
 
@@ -23,4 +25,15 @@ def sort_directory_contents(directory_contents)
   end
 end
 
-puts sort_directory_contents(Dir.glob('*'))
+opt = OptionParser.new
+
+options = {}
+opt.on('-a') { |v| options[:a] = v }
+
+opt.parse!(ARGV)
+
+if options[:a]
+  puts sort_directory_contents(Dir.glob('*', File::FNM_DOTMATCH))
+else
+  puts sort_directory_contents(Dir.glob('*'))
+end
